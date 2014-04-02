@@ -1,4 +1,3 @@
--- 
 -- Man Zhu
 -- 
 -- Georgetown University 
@@ -21,16 +20,23 @@ text.y = 0.5 * display.contentHeight
 local sessionComplete = function(event)	
 	local image = event.target
 
-	print( "Camera ", ( image and "returned an image" ) or "session was cancelled" )
-	print( "event name: " .. event.name )
-	print( "target: " .. tostring( image ) )
+	-- print( "Camera ", ( image and "returned an image" ) or "session was cancelled" )
+	-- print( "event name: " .. event.name )
+	-- print( "target: " .. tostring( image ) )
 
 	if image then
 		-- center image on screen
 		image.x = display.contentWidth/2
 		image.y = display.contentHeight/2
+		image.width = display.contentWidth
+		image.height = display.contentHeight
 		local w = image.width
 		local h = image.height
+		image.fill.effect = "filter.blurGaussian"
+		image.fill.effect.horizontal.blurSize = 20
+		image.fill.effect.horizontal.sigma = 140
+		image.fill.effect.vertical.blurSize = 20
+		image.fill.effect.vertical.sigma = 140
 		print( "w,h = ".. w .."," .. h )
 	end
 end
@@ -40,3 +46,5 @@ local listener = function( event )
 	return true
 end
 bkgd:addEventListener( "tap", listener )
+
+
